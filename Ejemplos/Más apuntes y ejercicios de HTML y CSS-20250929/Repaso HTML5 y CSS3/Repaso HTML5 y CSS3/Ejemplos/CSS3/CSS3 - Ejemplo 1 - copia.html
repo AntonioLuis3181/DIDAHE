@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>CSS 3 - Ejemplo 1</title>
+	<style>
+		
+		p[name] { background-color: green; }
+		p[title=texto] { background-color: cyan; }
+		p[title^="mi"] { background-color: yellow; }
+		p[title$="mi"] { background-color: pink; }
+		p[title*="x"] { background-color: purple; }
+		
+		p{ background-color: red; }
+	</style>
+</head>
+<body>
+	<p>Párrafo normal</p>
+	<p name="css">Parrafo con nombre css (un nombre cualquiera)</p>
+	<p title="texto">Parrafo con atributo title y valor "mitexto"</p>
+	<p title="miparrafo">Parrafo con title que empieza por mi.. "miparrafo"</p>
+	<p title="doremix">Parrafo con title "doremi"</p>
+	<p title="clixente">Parrafo con title que contiene "en" en cualquier parte "cliente"</p>
+</body>
+</html>

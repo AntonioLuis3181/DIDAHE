@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>novalidate and formnovalidate Example</title>
+</head>
+<body>
+<form>
+    <p><label>*Nombre: <input type="text" required /></label></p>
+    <p><label>*Calle: <input type="text" required /></label></p>
+    <input type="submit" name=enviar value="Guardar" />
+    <input type="submit" formnovalidate name="guardar" value="Guardar despu&eacute;s" />
+    <p>* Campo requerido</p>
+</form>
+<form novalidate>
+    <p>Area invalidada</p>
+    <p><label>Nombre: <input type="text" required /></label></p>
+    <p><label>Calle: <input type="text" required /></label></p>
+    <input type="submit" name=enviar value="Guardar" />
+</form>
+</body>
+</html>

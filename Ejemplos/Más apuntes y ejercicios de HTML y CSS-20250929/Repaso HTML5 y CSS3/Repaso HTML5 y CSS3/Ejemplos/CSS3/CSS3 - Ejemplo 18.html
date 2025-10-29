@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+<style>
+
+	.pruebas{
+		margin:auto;
+		width:300px;
+		height:100px;
+		background-color:#9CF;
+		font-size:24px;
+		text-align:center;
+		vertical-align:middle;
+	}
+	#scale{
+		-moz-transition: -moz-transform 2s linear 0.5s;
+		-ms-transition: -ms-transform 2s linear 0.5s;
+		-webkit-transition: -webkit-transform 2s linear 0.5s;
+		-o-transition: -o-transform 1s linear 0.5s;
+	}
+	#scale:hover{
+		background-color:#09F;
+		-moz-transform: scale(1,-1);
+		-ms-transform: scale(1,-1);
+		-webkit-transform: scale(1,-1);
+		-o-transform: scale(1,-1);
+	}
+	#rotate{
+		-moz-transition: -moz-transform 2s ease-in 0.5s;
+		-ms-transition: -ms-transform 2s ease-in 0.5s;
+		-webkit-transition: -webkit-transform 2s ease-in 0.5s;
+		-o-transition: -o-transform 1s ease-in 0.5s;
+	}
+
+	#rotate:hover{
+		background-color:#09F;
+		-moz-transform: rotate(30deg);
+		-ms-transform: rotate(30deg);
+		-webkit-transform: rotate(30deg);
+		-o-transform: rotate(30deg);
+	}
+	#skew{
+		-moz-transition: -moz-transform 2s ease-in-out 0.5s;
+		-ms-transition: -ms-transform 2s ease-in-out 0.5s;
+		-webkit-transition: -webkit-transform 2s ease-in-out 0.5s;
+		-o-transition: -o-transform 1s ease-in-out 0.5s;
+	}
+
+	#skew:hover{
+		background-color:#09F;
+		-moz-transform: skew(20deg);
+		-ms-transform: skew(20deg);
+		-webkit-transform: skew(20deg);
+		-o-transform: skew(20deg);
+	}
+	#translate{
+		-moz-transition: -moz-transform 2s ease-out 0.5s;
+		-ms-transition: -ms-transform 2s ease-out 0.5s;
+		-webkit-transition: -webkit-transform 2s ease-out 0.5s;
+		-o-transition: -o-transform 1s ease-out 0.5s;
+	}
+
+	#translate:hover{
+		background-color:#09F;
+		-moz-transform: translate(100px);
+		-ms-transform: translate(100px);
+		-webkit-transform: translate(100px);
+		-o-transform: translate(100px);
+	}
+	
+</style>
+</head>
+
+<body>
+<div class="pruebas">
+	Original
+</div>
+<div id="scale" class="pruebas">
+	transform: scale <br /> transition: linear
+</div>
+<p></p>
+
+<div class="pruebas">
+	Original
+</div>
+<div id="rotate" class="pruebas">
+	transform: rotate <br /> transition: ease-in
+</div>
+<p></p>
+
+<div class="pruebas">
+	Original
+</div>
+<div id="skew" class="pruebas">
+	transform: skew <br /> transition: ease-in-out
+</div>
+<p></p>
+
+<div class="pruebas">
+	Original
+</div>
+<div id="translate" class="pruebas">
+	transform: translate <br /> transition: ease-out
+</div>
+
+</body>
+</html>

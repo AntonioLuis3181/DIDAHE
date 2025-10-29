@@ -1,0 +1,45 @@
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+}
+.bloque {
+    padding: 16px;
+}
+
+li {
+    list-style-type: none;
+}
+strong {
+    display: block;
+    color: blue;
+}
+
+@media (min-width: 600px) {
+    .contenedor {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    h2 {
+        border-bottom: 0px;
+    }
+    .tablet-strong {
+        display: inline;
+    }
+    .tablet{
+        margin-left: 30px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .tablet {
+        display: flex;
+    }
+    section:last-child {
+        margin-left: 30px;
+    }
+}

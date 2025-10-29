@@ -1,0 +1,35 @@
+body {background-color: #e7e7e7;}
+
+#titulo{
+	font: normal 2em "Hoefler Text", "Baskerville old face", Garamond, "Times New Roman", serif;
+}
+
+.textosuperior{
+	font-family: Baskerville, Garamond, Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", serif;
+	font-style: italic;
+	font-weight: normal;
+}
+#enlacemenu{
+	font: bold 14px/1.2 "Book Antiqua", "Palatino Linotype", Georgia, serif;
+	font-size: 15px;
+}
+#enlacemenu2{
+	font: bold 14px/1.2 "Book Antiqua", "Palatino Linotype", Georgia, serif;
+	font-size: 10px;
+}
+
+p{
+	font-size: 0.8em;
+	font-family: Baskerville, Garamond, Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", serif;
+	font-style: italic;
+	font-weight: normal;
+}
+a{
+	color: #890101;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #DF3030;
+}
+

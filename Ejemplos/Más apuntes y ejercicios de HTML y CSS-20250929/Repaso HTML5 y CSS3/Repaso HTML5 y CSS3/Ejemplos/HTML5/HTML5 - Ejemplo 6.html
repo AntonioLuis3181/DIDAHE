@@ -1,0 +1,111 @@
+<html>
+<head>
+<script>
+var contador=0;
+
+function RecorrerForm()
+{
+	var sAux="";
+	var frm = document.getElementById("formulario");
+	for (i=0;i<frm.elements.length;i++)
+	{
+		sAux += "NOMBRE: " + frm.elements[i].name + " ";
+		sAux += "TIPO :  " + frm.elements[i].type + " "; ;
+		sAux += "VALOR: " + frm.elements[i].value + "\n" ;
+	}
+	alert(sAux);
+}
+
+function meter()
+{
+	meter=document.getElementById("meter")
+	meter.value++;
+}
+function progreso()
+{
+	var form = document.getElementById("formulario");
+	var prog=document.getElementById("barra");
+	prog.value=0;
+	for (var i=0;i<form.elements.length;i++)
+	{
+		if(form.elements[i].value!="")
+		{
+			
+			prog.value++;
+		}
+	}
+}
+function hora()
+{
+	var fecha = new Date();
+	var hora = fecha.getHours();
+	var minuto = fecha.getMinutes();
+	var segundo = fecha.getSeconds();
+
+	if (hora < 10)
+	{
+		hora = "0" + hora
+	}
+	if (minuto < 10) 
+	{
+		minuto = "0" + minuto
+	}
+	if (segundo < 10) 
+	{
+		segundo = "0" + segundo
+	}
+	var horita=hora+":"+minuto+":"+segundo;
+	document.getElementById("hora").innerHTML=horita;
+	tiempo=setTimeout("hora()",1000);
+}
+function inicio()
+{
+/*document.write('<span id="hora">')
+document.write ('000000</span>')*/
+hora()
+}
+
+function muestraFecha()
+{
+	var fec=document.getElementById("fecha");
+	alert(fec.value);
+	alert("25 de diciembre! fun fun fun!");
+
+}
+</script>
+</head>
+<body onload="inicio();">
+<form id="formulario" onsubmit="meter();" oninput="res.value =parseInt(op1.value) * parseInt(op2.value)" method="post">
+    <!--No hace falta poner nombre al datalist...creo-->
+	<datalist id="oficio">
+	 	<option value="fontanero"> </option>
+		<option value="electricista"> </option>
+		<option value="albañil"> </option>
+	 </datalist>
+	operando1 <input onblur="progreso();" name="op1" type="number" step="any"> x
+    operando2 <input onblur="progreso();" name="op2" type="number" step="any"> =
+    <output onblur="progreso();" name="res" for “op1 op2”></output>
+	<br>Seleccione su oficio: 
+	<input onblur="progreso();" name="oficio" type="text" list="oficio" />
+	<input onfocus="progreso();" type="submit" value="Aceptar" onclick="meter();" >
+</form>
+	Progreso del formulario:  
+	<progress id="barra" value="0" max="5">
+	<p>Su navegador no soporta la tecnologia html5</p>
+	</progress>
+	<br>
+	Personas que han realizado este formulario: 
+	<meter id="meter" min="0" max="10" value="1">
+	<p>Su navegador no soporta la tecnologia html5</p>
+	</meter>
+	<p>Esto es un ejemplo de la etiqueta <mark>html5</mark> mark </p>
+	<p><small>Este formulario no cedera sus datos personales a terceros etc...</small></p>
+	<p>No está muerto lo que puede yacer eternamente; y con el paso de los extraños eones por venir, incluso la Muerte puede morir.</p>
+	<p><cite>H.P. Lovecraft</cite></p>
+	<p>Son las <time><span id="hora"></span></time> PM </p>
+	<p>Ya mismo es <time id="fecha" datetime="25-12-2012" onmouseover="muestraFecha();">Nochebuena</time>.</p>
+	<p>tengo un esternocleidomastoideo super<wbr>cali<wbr>fragi<wbr>listico<wbr>espia<wbr>lidosa<wbr>mente brutal de feo</p>
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>border-image</title>
+<style type="text/css">
+p {text-align:center;}
+  
+div {
+     width: 200px;
+     height: 50px;
+     padding: 10px;
+	 margin:30px;
+     border-width: 5px;
+     -webkit-border-image: url(borde1.gif) 20% stretch;
+     -moz-border-image: url(borde1.gif) 20% stretch;
+    }
+div.div2 {
+     width: 200px;
+     height: 50px;
+     padding: 15px;
+     border-width: 15px;
+     -webkit-border-image: url(borde.gif) 15%;
+     -moz-border-image: url(borde.gif) 20%;
+    }	
+</style>
+</head>
+<body>
+    <div>
+     <p>Ejemplo de border-image</p>
+    </div>
+	<div class="div2"><p>Ejemplo de border-image</p></div>
+</body>
+</html>
+
+
