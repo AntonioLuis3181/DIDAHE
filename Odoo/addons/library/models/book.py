@@ -2,6 +2,7 @@ from odoo import models, fields, api
 
 class book(models.Model):
     _name = 'library.book'
+    _rec_name = 'title'
 
     title = fields.Char("Título",size=128)
     image = fields.Binary('Imagen')

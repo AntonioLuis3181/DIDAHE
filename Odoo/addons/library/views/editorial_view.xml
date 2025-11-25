@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="library.editorial_action_window">
+            <field name="name">Editoriales</field>
+            <field name="res_model">library.editorial</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

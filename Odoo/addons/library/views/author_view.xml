@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="library.author_action_window">
+            <field name="name">Autores</field>
+            <field name="res_model">library.author</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

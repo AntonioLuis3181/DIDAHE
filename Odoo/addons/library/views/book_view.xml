@@ -7,17 +7,6 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <!-- Top menu item MODULO -->
-
-        <menuitem name="Biblioteca" id="library.menu_root"/>
-
-        <!-- menu categories MODELO -->
-
-        <menuitem name="Libros" id="library.menu_book" parent="library.menu_root"/>
-
-        <!-- actions -->
-
-        <menuitem name="Listado de libros" id="library.menu_book_listado" parent="library.menu_book" action="library.book_action_window"/>
 
     </data>
 </odoo>
