@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    container_name: postgres
+    container_name: postgres_25_26
     image: postgres:10
     volumes:
       - odoo-db-data:/var/lib/postgresql/data
@@ -19,7 +19,7 @@ services:
     restart: always
       
   pgadmin:
-    container_name: pgadmin
+    container_name: pgadmin_25_26
     image: dpage/pgadmin4
     environment:
       - PGADMIN_DEFAULT_EMAIL=odoo@odoo.com
@@ -34,7 +34,7 @@ services:
       - compose-network
   
   odoo:
-    container_name: odoo
+    container_name: odoo14_25_26
     image: odoo:14
     depends_on:
       - db
