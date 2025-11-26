@@ -24,7 +24,7 @@ app.use(
     credentials: true, //Permitir envio de cookies
   })
 );
-
+// Configuracion para servidor web de ficheros estaticos
 app.use(express.static("public"));
 
 let notes = [

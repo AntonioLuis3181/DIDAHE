@@ -17,6 +17,12 @@
 
             let notas = await response.json();
 
+            let texto = "";
+
+            for (let nota of notas) {
+                texto += "ID: " + nota.id + "Component: " + nota.content + "Important: " + nota.important
+            }
+
             console.log("Notas recibidas: " + notas);
         }
     </script>
