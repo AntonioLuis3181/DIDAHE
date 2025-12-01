@@ -11,3 +11,9 @@ class book(models.Model):
     type = fields.Selection([('fantasia','Novela fantástica'), 
                              ('historia', 'Ensayo historico')],
                             'Genero')
+    
+    editorial_id = fields.Many2one("library.editorial","Editoriales")
+
+    autores_ids = fields.Many2Many("library.author",
+                                  string="Autores",# relation="library_book_library_partner_rel" #opcional
+                                  )

@@ -6,3 +6,8 @@ class author(models.Model):
     name = fields.Char("Nombre",size=64, required=True, readonly=False)
     nationality = fields.Many2one("res.country","Nacionalidad")
     birthday = fields.Date("Fecha de nacimiento", size=16)
+
+    libros_ids = fields.Many2Many("library.book",
+                                 string="Libros",
+                                 #relation="library_book_library_partner_rel"#opcional
+                                 )
