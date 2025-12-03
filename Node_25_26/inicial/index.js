@@ -99,6 +99,8 @@ app.post("/api/notes", (request, response) => {
   response.json(note);
 });
 
+// Caso de que la ruta recibida no se procese en ninguna de las rutas anteriores
+// se da un error 404 por medio de este middleware
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" });
 };

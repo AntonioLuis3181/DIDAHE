@@ -14,6 +14,6 @@ class book(models.Model):
     
     editorial_id = fields.Many2one("library.editorial","Editoriales")
 
-    autores_ids = fields.Many2Many("library.author",
+    author_ids = fields.Many2Many("library.book",
                                   string="Autores",# relation="library_book_library_partner_rel" #opcional
                                   )
