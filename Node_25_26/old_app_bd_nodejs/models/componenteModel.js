@@ -1,101 +1,111 @@
-// Ejemplo en componenteModel.js
-const db = require('../config/dbConfig');
-const { logErrorSQL, logMensaje } = require('../utils/logger');
+// componenteModel.js (refactorizado a async/await usando el wrapper db.query)
+const db = require("../config/dbConfig");
+const { logErrorSQL, logMensaje } = require("../utils/logger");
 
 class ComponenteModel {
-    getAllComponente(callback) {
-        const query = 'SELECT * FROM componente';
-        db.query(query, (err, result) => {
-            if (err) {
-                logErrorSQL(err);
-                callback(err, null);
-            } else {
-                callback(null, result);
-            }
-        });
+  async getAllComponente() {
+    const query = "SELECT * FROM componente";
+    try {
+      const rows = await db.query(query);
+      return rows;
+    } catch (err) {
+      logErrorSQL(err);
+      throw err;
     }
+  }
 
-    getAllComponenteListado(callback) {
-        const query = 'SELECT c.*, t.tipo, t.descripcion as tipo_descripcion FROM componente c JOIN tipo t ON c.idtipo = t.idtipo';
-        db.query(query, (err, result) => {
-            if (err) {
-                logErrorSQL(err);
-                callback(err, null);
-            } else {
-                callback(null, result);
-            }
-        });
+  async getAllComponenteListado() {
+    const query =
+      "SELECT c.*, t.tipo, t.descripcion as tipo_descripcion FROM componente c JOIN tipo t ON c.idtipo = t.idtipo";
+    try {
+      const rows = await db.query(query);
+      return rows;
+    } catch (err) {
+      logErrorSQL(err);
+      throw err;
     }
+  }
 
-    getAllComponenteGrafica(callback) {
-        const query = 'SELECT tipo,count(*) as stock FROM componente as c, tipo as t WHERE c.idtipo = t.idtipo group by tipo order by tipo; ';
-        db.query(query, (err, result) => {
-            if (err) {
-                logErrorSQL(err);
-                callback(err, null);
-            } else {
-                callback(null, result);
-            }
-        });
+  async getAllComponenteGrafica() {
+    const query =
+      "SELECT tipo, count(*) as stock FROM componente as c, tipo as t WHERE c.idtipo = t.idtipo GROUP BY tipo ORDER BY tipo";
+    try {
+      const rows = await db.query(query);
+      return rows;
+    } catch (err) {
+      logErrorSQL(err);
+      throw err;
     }
+  }
 
-    async createComponente(componenteData,callback) {
-        // Atencion, idcomponente es PK y es Auto Incremental, se pone como null
-        const query = 'INSERT INTO componente (idcomponente, nombre, descripcion, precio, idtipo) VALUES (?, ?, ?, ?, ?)';
-        const values = [null, componenteData.nombre, componenteData.descripcion, componenteData.precio, componenteData.idtipo];
-
-        const result = db.query(query, values, (err, result) => {
-            if (err) {
-                logErrorSQL(err);
-                callback(err, null);
-            } else {
-                callback(null, result);
-            }
-        });
+  async createComponente(componenteData) {
+    // Atencion, idcomponente es PK y es Auto Incremental, se pone como null
+    const query =
+      "INSERT INTO componente (idcomponente, nombre, descripcion, precio, idtipo) VALUES (?, ?, ?, ?, ?)";
+    const values = [
+      null,
+      componenteData.nombre,
+      componenteData.descripcion,
+      componenteData.precio,
+      componenteData.idtipo,
+    ];
+    try {
+      const result = await db.query(query, values);
+      return result; // OkPacket
+    } catch (err) {
+      logErrorSQL(err);
+      throw err;
     }
+  }
 
-    getComponenteById(componenteId, callback) {
-        const query = 'SELECT * FROM componente WHERE idcomponente = ?';
-        db.query(query, [componenteId], (err, result) => {
-            if (err) {
-                logErrorSQL(err);
-                callback(err, null);
-            } else if (result.length === 0) {
-                callback(null, null);
-            } else {
-                const componente = result[0];
-                callback(null, componente);
-            }
-        });
+  async getComponenteById(componenteId) {
+    const query = "SELECT * FROM componente WHERE idcomponente = ?";
+    try {
+      const rows = await db.query(query, [componenteId]);
+      if (!rows || rows.length === 0) return null;
+      return rows[0];
+    } catch (err) {
+      logErrorSQL(err);
+      throw err;
     }
+  }
 
-    getComponenteByIdRelations(componenteId, callback) {
-        const query = 'SELECT c.*,t.tipo,t.descripcion as tipodesc FROM componente as c, tipo as t WHERE c.idtipo = t.idtipo AND idcomponente = ?';
-        db.query(query, [componenteId], (err, result,fields) => {
-            if (err) {
-                logErrorSQL(err);
-                callback(err, null);
-            } else if (result.length === 0) {
-                callback(null, null);
-            } else {
-                const componente = result[0];  // Devuelvo la primera fila { col1: v1 , col2 : v2}
-                callback(null, componente);
-            }
-        });
+  async getComponenteByIdRelations(componenteId) {
+    const query =
+      "SELECT c.*, t.tipo, t.descripcion as tipodesc FROM componente as c JOIN tipo as t ON c.idtipo = t.idtipo WHERE idcomponente = ?";
+    try {
+      const rows = await db.query(query, [componenteId]);
+      if (!rows || rows.length === 0) return null;
+      return rows[0];
+    } catch (err) {
+      logErrorSQL(err);
+      throw err;
     }
+  }
 
-    deleteComponente(componenteId, callback) {
-        const query = 'DELETE FROM componente WHERE idcomponente = ?';
-        db.query(query, [componenteId], (err, result) => {
-            if (err) {
-                callback(err, null);
-            } else {
-                callback(null, result);
-            }
-        });
+  async updateComponente(id, componenteData) {
+    const query = "UPDATE componente SET ? WHERE idcomponente = ?";
+    try {
+      const result = await db.query(query, [componenteData, id]);
+      return result; // OkPacket
+    } catch (err) {
+      logErrorSQL(err);
+      throw err;
     }
+  }
 
-    // Otros métodos del modelo...
+  async deleteComponente(componenteId) {
+    const query = "DELETE FROM componente WHERE idcomponente = ?";
+    try {
+      const result = await db.query(query, [componenteId]);
+      return result; // OkPacket
+    } catch (err) {
+      logErrorSQL(err);
+      throw err;
+    }
+  }
+
+  // Otros métodos del modelo...
 }
 
 module.exports = new ComponenteModel();
@@ -111,4 +121,3 @@ module.exports = new ComponenteModel();
 //   protocol41: true,
 //   changedRows: 0  // Número de filas cambiadas por la consulta
 // }
-

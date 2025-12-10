@@ -12,12 +12,34 @@
                 </tree>
             </field>
         </record>
+        <record model="ir.ui.view" id="library_author_form">
+            <field name="name">Autores</field>
+            <field name="model">library.author</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="2">
+                        <group>
+                            <field name="name" />
+                            <field name="nationality" />
+                        </group>
+                        <group>
+                            <field name="birthdate" />
+                            <field name="book_ids">
+                                <tree>
+                                    <field name="title" />
+                                    <field name="isbn" />
+                                    <field name="type" />
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
         <record model="ir.actions.act_window" id="library.author_action_window">
             <field name="name">Autores</field>
             <field name="res_model">library.author</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-
     </data>
 </odoo>

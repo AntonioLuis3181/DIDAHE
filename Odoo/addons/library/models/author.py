@@ -1,13 +1,13 @@
 from odoo import models, fields, api
 
 class author(models.Model):
-    _name = "library.author"
+    _name = 'library.author'
 
-    name = fields.Char("Nombre",size=64, required=True, readonly=False)
+    name = fields.Char("Nombre",size=64, required=True)
     nationality = fields.Many2one("res.country","Nacionalidad")
-    birthday = fields.Date("Fecha de nacimiento", size=16)
+    birthdate = fields.Date('Fecha de nacimiento')
 
-    book_ids = fields.Many2Many("library.author",
-                                 string="Libros",
-                                 #relation="library_book_library_partner_rel"#opcional
-                                 )
+    book_ids = fields.Many2many(
+        string='Libros',
+        comodel_name='library.book',
+    )
