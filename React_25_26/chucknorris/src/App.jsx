@@ -1,12 +1,13 @@
-import Categorias_chistes from "./Categorias_chistes";
-import VisorChistes from "./VisorChistes";
+import VisorChistes from "./VisorChistes"
 
 function App() {
+  
+
   return (
     <>
-      <VisorChistes />
+      <VisorChistes/>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
