@@ -1,20 +1,15 @@
-import { useState, useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
 
-function ListadoDirectores() {
+function ListadoCardDirectores() {
   const [datos, setDatos] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -23,11 +18,7 @@ function ListadoDirectores() {
     async function fetchDirectores() {
       try {
         const respuesta = await api.get("/directors/");
-
-        // Actualizamos los datos de directores
         setDatos(respuesta.datos);
-
-        // Y no tenemos errores
         setError(null);
       } catch (error) {
         setError(error.mensaje || "No se pudo conectar al servidor");
@@ -41,13 +32,10 @@ function ListadoDirectores() {
   async function handleDelete(id_director) {
     try {
       await api.delete("/directors/" + id_director);
-
-      const datos_nuevos = datos.filter( director => director.id_director != id_director);
-
-      // Actualizamos los datos de directores sin el que hemos borrado
+      const datos_nuevos = datos.filter(
+        (director) => director.id_director !== id_director
+      );
       setDatos(datos_nuevos);
-
-      // Y no tenemos errores
       setError(null);
     } catch (error) {
       setError(error.mensaje || "No se pudo conectar al servidor");
@@ -55,23 +43,20 @@ function ListadoDirectores() {
     }
   }
 
-  if (error != null) {
+  // Manejo de estados de error y carga
+  if (error !== null) {
     return (
-      <>
-        <Typography variant="h5" align="center" sx={{ mt: 3 }}>
-          {error}
-        </Typography>
-      </>
+      <Typography variant="h5" align="center" sx={{ mt: 3 }}>
+        {error}
+      </Typography>
     );
   }
 
   if (!datos || datos.length === 0) {
     return (
-      <>
-        <Typography variant="h5" align="center" sx={{ mt: 3 }}>
-          No hay directores disponibles
-        </Typography>
-      </>
+      <Typography variant="h5" align="center" sx={{ mt: 3 }}>
+        No hay directores disponibles
+      </Typography>
     );
   }
 
@@ -80,59 +65,44 @@ function ListadoDirectores() {
       <Typography variant="h4" align="center" sx={{ my: 3 }}>
         Listado de directores
       </Typography>
-
-      <TableContainer component={Paper}>
-        <Table stickyHeader ria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Nombre</TableCell>
-              <TableCell align="center">Fecha nacimiento</TableCell>
-              <TableCell>Biografía</TableCell>
-              <TableCell>Fotografía</TableCell>
-              <TableCell>Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {datos.map((row) => (
-              <TableRow key={row.id_director}>
-                <TableCell>{row.name}</TableCell>
-                <TableCell align="center">{row.birth_date}</TableCell>
-                <TableCell
-                  sx={{
-                    maxWidth: "500px",
-                    textWrap: "wrap",
-                    overflow: "hidden",
-                  }}
-                >
+      
+      <Grid container spacing={3}>
+        {datos.map((row) => (
+          <Grid item xs={12} sm={6} md={4} key={row.id_director}>
+            <Card sx={{ maxWidth: 345, height: '100%' }}>
+              <CardMedia
+                sx={{ height: 140 }}
+                image={row.photo_url}
+                title={row.name}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {row.name}
+                </Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   {row.biography}
-                </TableCell>
-                <TableCell>
-                  <Avatar alt={row.name} src={row.photo_url} />
-                </TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={() => handleDelete(row.id_director)}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                  <Button
-                    sx={{ml: 1}}
-                    variant="contained"
-                    color="primary"
-                    onClick={() => navigate('/directors/edit/' + row.id_director)}
-                  >
-                    <EditIcon />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Compartir</Button>
+                <Button size="small">Ver más</Button>
+                <Button 
+                  size="small" 
+                  color="error"
+                  onClick={() => handleDelete(row.id_director)}
+                >
+                  Eliminar
+                </Button>
+              </CardActions>
+              <Link to={'/directors/edit/$row.director'}>
+                
+              </Link>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 }
 
-export default ListadoDirectores;
+export default ListadoCardDirectores;

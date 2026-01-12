@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router";
 
 import Inicio from "./components/Inicio";
 import ListadoDirectores from "./components/ListadoDirectores";
+import ListadoCardDirectores from "./components/ListadoCardDirectores";
 import AltaDirector from "./components/AltaDirector";
 import EditarDirector from "./components/EditarDirector"
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/directors",
         element: <ListadoDirectores/>,
+      },
+            {
+        path: "/directors/cards",
+        element: <ListadoCardDirectores/>,
       },
       {
         path: "/directors/new",
