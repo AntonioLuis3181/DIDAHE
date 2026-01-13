@@ -6,13 +6,11 @@ import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 
 function ListadoCardDirectores() {
   const [datos, setDatos] = useState([]);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchDirectores() {

@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router";
 
 import Inicio from "./components/Inicio";
 import ListadoDirectores from "./components/ListadoDirectores";
-import ListadoCardDirectores from "./components/ListadoCardDirectores";
+import ListadoCardDirectores from "./components/ListadoCardsDirectores";
 import AltaDirector from "./components/AltaDirector";
 import EditarDirector from "./components/EditarDirector"
 
