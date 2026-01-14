@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-// Definimos el middleware
+// Definimos un middleware
 const requestLogger = (request, response, next) => {
   console.log("Method:", request.method);
   console.log("Path:  ", request.path);
@@ -11,33 +11,27 @@ const requestLogger = (request, response, next) => {
   next();
 };
 
-// Preparamos express para que admita datos de entrada JSON
+// Preparamos express para que admita datos de entrada en JSON
 app.use(express.json());
+// Agregamos nuestro middleware
 app.use(requestLogger);
-
-// Admitimos todos los origenes
+// Admitimos todos los orígenes
 // app.use(cors());
 
+// Configurar CORS para admitir ciertos orígenes
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:8081"], // Permite el fronted el desarrollo React y React Native
-    credentials: true, //Permitir envio de cookies
+    origin: ["http://localhost:5173", "http://localhost:8081"], // Permitir el frontend en desarrollo de React y React Native
+    credentials: true, // Permitir envío de cookies
   })
 );
-// Configuracion para servidor web de ficheros estaticos
-app.use(express.static("public"));
+
+// Configuración para servidor web de ficheros estáticos en la carpeta public
+app.use(express.static('public'));
 
 let notes = [
-  {
-    id: 1,
-    content: "HTML is easy",
-    important: true,
-  },
-  {
-    id: 2,
-    content: "Browser can execute only JavaScript",
-    important: false,
-  },
+  { id: 1, content: "HTML is easy", important: true },
+  { id: 2, content: "Browser can execute only JavaScript", important: false },
   {
     id: 3,
     content: "GET and POST are the most important methods of HTTP protocol",
@@ -45,8 +39,9 @@ let notes = [
   },
 ];
 
+// Si se ha configurado Express como servidor web de ficheros estáticos, esta ruta no se alcanza
 app.get("/", requestLogger, (request, response) => {
-  response.send("<h1>Hola Mundo cruel!</h1>");
+  response.send("<h1>Hola mundo cruel!</h1>");
 });
 
 app.get("/api/notes", (request, response) => {
@@ -56,12 +51,13 @@ app.get("/api/notes", (request, response) => {
 app.get("/api/notes/:id", (request, response) => {
   const id = parseInt(request.params.id);
   const note = notes.find((note) => note.id === id);
+
   if (note) {
     response.json(note);
   } else {
     response
       .status(404)
-      .json({ mensaje: "No existe la nota con el id:" + id })
+      .json({ mensaje: "No existe la nota con id: " + id })
       .end();
   }
 });
@@ -81,7 +77,7 @@ const generateId = () => {
 app.post("/api/notes", (request, response) => {
   const body = request.body;
 
-  // Si no llega el atributo content ==> ERROR 400
+  // Si no llega el atributo content ==> BAD REQUEST
   if (!body.content) {
     return response.status(400).json({
       error: "content missing",
@@ -90,7 +86,7 @@ app.post("/api/notes", (request, response) => {
 
   const note = {
     content: body.content,
-    important: Boolean(body.important) || false, // Si no llega importan ==> valor false
+    important: Boolean(body.important) || false, // Si no llega important ==> valor false
     id: generateId(),
   };
 
@@ -100,7 +96,7 @@ app.post("/api/notes", (request, response) => {
 });
 
 // Caso de que la ruta recibida no se procese en ninguna de las rutas anteriores
-// se da un error 404 por medio de este middleware
+// se da un error 404 por medio de este middleware 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" });
 };

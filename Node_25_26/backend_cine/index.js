@@ -4,6 +4,7 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const { logMensaje } = require("./utils/logger.js");
 
 // Rutas de la API
 const directorRoutes = require("./routes/directorRoutes");
@@ -32,18 +33,18 @@ app.use(express.static(path.join(__dirname, "public")));
 // ============================================
 // RUTAS - API REST
 // ============================================
-app.use("/api/director", directorRoutes);
+app.use("/api/directors", directorRoutes);
 
 // ============================================
 // RUTAS - SPA (Catch-all)
 // ============================================
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 // ============================================
 // SERVIDOR
 // ============================================
 app.listen(port, () => {
-  console.log(`Servidor escuchando en el puerto ${port}`);
+  logMensaje(`Servidor escuchando en el puerto ${port}`);
 });

@@ -1,21 +1,15 @@
 // tipoController.js (refactorizado a async/await)
-const tipoService = require("../services/tipoService");
-const Respuesta = require("../utils/respuesta");
+const tipoService = require('../services/tipoService');
+const Respuesta = require('../utils/respuesta');
 
 class TipoController {
+
   async getAllTipo(req, res) {
     try {
       const data = await tipoService.getAllTipo();
-      return res.json(Respuesta.exito(data, "Datos de tipos recuperados"));
+      return res.json(Respuesta.exito(data, 'Datos de tipos recuperados'));
     } catch (err) {
-      return res
-        .status(500)
-        .json(
-          Respuesta.error(
-            err,
-            "Error al recuperar los datos: " + req.originalUrl
-          )
-        );
+      return res.status(500).json(Respuesta.error(err, 'Error al recuperar los datos: ' + req.originalUrl));
     }
   }
 
@@ -24,17 +18,11 @@ class TipoController {
     try {
       const data = await tipoService.getTipoById(id);
       if (!data || (Array.isArray(data) && data.length === 0)) {
-        return res
-          .status(404)
-          .json(Respuesta.error(null, `Tipo con id ${id} no encontrado`));
+        return res.status(404).json(Respuesta.error(null, `Tipo con id ${id} no encontrado`));
       }
-      return res.json(Respuesta.exito(data[0] || data, "Tipo recuperado"));
+      return res.json(Respuesta.exito(data[0] || data, 'Tipo recuperado'));
     } catch (err) {
-      return res
-        .status(500)
-        .json(
-          Respuesta.error(err, "Error al recuperar el tipo: " + req.originalUrl)
-        );
+      return res.status(500).json(Respuesta.error(err, 'Error al recuperar el tipo: ' + req.originalUrl));
     }
   }
 
@@ -43,18 +31,9 @@ class TipoController {
     try {
       const result = await tipoService.createTipo(tipoData);
       // result.insertId normalmente contiene el id creado
-      return res
-        .status(201)
-        .json(
-          Respuesta.exito(
-            { insertId: result.insertId },
-            "Tipo creado correctamente"
-          )
-        );
+      return res.status(201).json(Respuesta.exito({ insertId: result.insertId }, 'Tipo creado correctamente'));
     } catch (err) {
-      return res
-        .status(500)
-        .json(Respuesta.error(err, "Error al crear el tipo"));
+      return res.status(500).json(Respuesta.error(err, 'Error al crear el tipo'));
     }
   }
 
@@ -64,17 +43,11 @@ class TipoController {
     try {
       const result = await tipoService.updateTipo(id, tipoData);
       if (result.affectedRows === 0) {
-        return res
-          .status(404)
-          .json(Respuesta.error(null, `Tipo con id ${id} no encontrado`));
+        return res.status(404).json(Respuesta.error(null, `Tipo con id ${id} no encontrado`));
       }
-      return res.json(
-        Respuesta.exito(result, "Tipo actualizado correctamente")
-      );
+      return res.json(Respuesta.exito(result, 'Tipo actualizado correctamente'));
     } catch (err) {
-      return res
-        .status(500)
-        .json(Respuesta.error(err, "Error al actualizar el tipo"));
+      return res.status(500).json(Respuesta.error(err, 'Error al actualizar el tipo'));
     }
   }
 
@@ -83,15 +56,11 @@ class TipoController {
     try {
       const result = await tipoService.deleteTipo(id);
       if (result.affectedRows === 0) {
-        return res
-          .status(404)
-          .json(Respuesta.error(null, `Tipo con id ${id} no encontrado`));
+        return res.status(404).json(Respuesta.error(null, `Tipo con id ${id} no encontrado`));
       }
-      return res.json(Respuesta.exito(result, "Tipo eliminado correctamente"));
+      return res.json(Respuesta.exito(result, 'Tipo eliminado correctamente'));
     } catch (err) {
-      return res
-        .status(500)
-        .json(Respuesta.error(err, "Error al eliminar el tipo"));
+      return res.status(500).json(Respuesta.error(err, 'Error al eliminar el tipo'));
     }
   }
 }
