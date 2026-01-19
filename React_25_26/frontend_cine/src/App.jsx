@@ -3,16 +3,23 @@ import { createBrowserRouter } from "react-router";
 
 import Inicio from "./components/Inicio";
 import ListadoDirectores from "./components/ListadoDirectores";
-import ListadoCardDirectores from "./components/ListadoCardsDirectores";
 import AltaDirector from "./components/AltaDirector";
 import EditarDirector from "./components/EditarDirector"
+import ListadoCardsDirectores from "./components/ListadoCardsDirectores";
+import ListadoDirectorFiltro from "./components/ListadoDirectorFiltro";
+import ListadoPeliculas from "./components/ListadoPeliculas";
+import ListadoPeliculasFiltro from "./components/ListadoPeliculasFiltro";
+import EditarPelicula from "./components/EditarPelicula";
+import AltaPelicula from "./components/AltaPelicula";
 
 import Home from "./pages/Home";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: Home,
+    errorElement: <ErrorPage />,
     children: [
       // Todo esto se ve en el Outlet
       { index: true, Component: Inicio }, // Esto se ve en la ruta padre
@@ -20,9 +27,13 @@ const router = createBrowserRouter([
         path: "/directors",
         element: <ListadoDirectores/>,
       },
-            {
+      {
         path: "/directors/cards",
-        element: <ListadoCardDirectores/>,
+        element: <ListadoCardsDirectores />,
+      },
+      {
+        path: "/directors/filter",
+        element: <ListadoDirectorFiltro />,
       },
       {
         path: "/directors/new",
@@ -34,11 +45,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/movies",
-        element: <h1>Listado de peliculas</h1>,
+        element: <ListadoPeliculas/>,
+      },
+      {
+        path: "/movies/filter",
+        element: <ListadoPeliculasFiltro/>,
+      },
+      {
+        path: "/movies/edit/:id_movie",
+        element: <EditarPelicula/>,
       },
       {
         path: "/movies/new",
-        element: <h1>Alta de peliculas</h1>,
+        element: <AltaPelicula/>,
       },
     ],
   },
