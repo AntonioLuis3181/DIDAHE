@@ -1,7 +1,69 @@
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
-
+import api from "../api";
 
 function EditorNotas(){
+    const navigate = useNavigate();
+    const [notas, setNota] = useState({
+    titulo: "",
+    texto: "",
+    urlimagen: "",
+  });
+
+  // Estado para ver si se esta enviado el formulario
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  // Obtener ID de la nota de los parámetros ruta
+  const { idnota } = useParams();
+    useEffect(() => {
+    async function fetchUpdateNota() {
+      try {
+        await api.put(`/notas/${idnota}`, notas);
+
+        alert("Actualizacion correcta de la nota")
+         navigate("/")
+      } catch (error) {
+        alert(error.mensaje || "Error al actualizar la nota"); // Abrir el diálogo
+      }
+      // Pase lo que pase hemos terminado el proceso de actualización
+      setIsUpdating(false);
+    }
+
+    if (isUpdating) fetchUpdateNota();
+  }, [isUpdating]);
+
+
+  
+  function handleClick() {
+    // evitar envíos duplicados por pulsar el botón tras el mensaje de inserción correcta
+    if (isUpdating) return;
+    setIsUpdating(true);
+  }
+
+    useEffect(() => {
+    async function fetchNota() {
+      try {
+        const respuesta = await api.get(`/notas/${idnota}`);
+        setNota(respuesta.datos);
+      } catch (error) {
+        alert(error.mensaje || "Error al recuperar los datos de la nota") 
+      }
+    }
+    fetchNota();
+  }, [idnota]);
+
+    function handleChange(e) {
+    setNota({ ...notas, [e.target.name]: e.target.value });
+  }
+
+
+
 return ( 
     <>
       {/* Contenedor principal */}
@@ -40,7 +102,7 @@ return (
                   name="titulo"
                   type="text"
                   maxLength="100"
-                  value={nota.titulo}
+                  value={notas.titulo}
                   onChange={handleChange}
                 />
               </Grid>
@@ -60,7 +122,7 @@ return (
                   maxRows={4}
                   minRows={2}
                   maxLength="1000"
-                  value={nota.texto}
+                  value={notas.texto}
                   onChange={handleChange}
                 />
               </Grid>
@@ -70,12 +132,12 @@ return (
                 <TextField
                   required
                   fullWidth
-                  id="photo_url"
+                  id="urlimagen"
                   label="URL de la fotografía"
-                  name="photo_url"
+                  name="urlimagen"
                   type="text"
                   maxLength="255"
-                  value={nota.urlimagen}
+                  value={notas.urlimagen}
                   onChange={handleChange}
                 />
               </Grid>

@@ -1,0 +1,14 @@
+-- Cambiar nombre imagen --
+docker tag {id_imagen o nombre_imagen} {usuario_docker}/{nuevo_nombre_imagen}
+
+-- Iniciar sesión de la imagen --
+docker login 
+
+-- Subir nueva imagen --
+docker push {usuario_docker}/{nuevo_nombre_imagen}
+
+-- Descargar nueva imagen --
+docker pull {usaurio_docker}/{nuevo_nombre_imagen}
+
+-- Ejecutar la nueva imagen --
+docker run -d --name {nuevo_nombre_contenedor} -p 3000:3000 {usuario_docker/nuevo_nombre_imagen}
